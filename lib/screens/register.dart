@@ -82,9 +82,6 @@ class _RegisterState extends State<Register> {
                         height: AppSizes.extraSmall,
                       ),
 
-                      SizedBox(
-                        height: AppSizes.small,
-                      ),
                       AppInput(
                           "Email", TextInputType.emailAddress, emailAddress),
                       SizedBox(

@@ -81,66 +81,72 @@ class Services extends StatelessWidget {
                 (BuildContext context, int index) {
                   OfferInfoController _offerInfoControllerInList =
                       Get.find<OfferInfoController>();
-                  return Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.container,
-                        borderRadius: BorderRadius.circular(AppSizes.small),
-                      ),
-                      margin: EdgeInsets.symmetric(
-                        vertical: AppSizes.extraSmall,
-                        horizontal: AppSizes.mediumSmall,
-                      ),
-                      padding: EdgeInsets.symmetric(vertical: AppSizes.small),
-                      child: ListTile(
-                        leading: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                                onTap: () {
-                                  Get.toNamed(UpdatePage.id, arguments: {
-                                    'name': _offerInfoControllerInList
-                                        .offerInfo.offerList[index].name,
-                                    'description': _offerInfoControllerInList
-                                        .offerInfo.offerList[index].description,
-                                    'price': _offerInfoControllerInList
-                                        .offerInfo.offerList[index].price,
-                                    'uid': _offerInfoControllerInList
-                                        .offerInfo.offerList[index].uid
-                                  });
-                                },
-                                child: const Icon(
-                                  Icons.edit,
-                                  size: 20,
-                                )),
-                            GestureDetector(
-                              child: const Icon(
-                                Icons.delete,
-                                size: 20,
-                              ),
-                              onTap: () {
-                                Get.bottomSheet(
-                                    DeleteConfirm(_offerInfoControllerInList
-                                        .offerInfo.offerList[index].uid),
-                                    backgroundColor:
-                                        AppColors.scaffoldBackground,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(
-                                                AppSizes.mediumLarge),
-                                            topRight: Radius.circular(
-                                                AppSizes.mediumLarge))));
-                              },
-                            )
-                          ],
-                        ),
-                        title: Obx(() => Text(_offerInfoControllerInList
-                            .offerInfo.offerList[index].name!)),
-                        subtitle: Text(_offerInfoControllerInList
-                            .offerInfo.offerList[index].description!),
-                        trailing: Text(
-                            '₱ ${_offerInfoControllerInList.offerInfo.offerList[index].price!}'),
-                      ));
+                  return _offerInfoControllerInList
+                          .offerInfo.offerList[index].name!
+                          .contains(searchText.text)
+                      ? Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.container,
+                            borderRadius: BorderRadius.circular(AppSizes.small),
+                          ),
+                          margin: EdgeInsets.symmetric(
+                            vertical: AppSizes.extraSmall,
+                            horizontal: AppSizes.mediumSmall,
+                          ),
+                          padding:
+                              EdgeInsets.symmetric(vertical: AppSizes.small),
+                          child: ListTile(
+                            leading: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(UpdatePage.id, arguments: {
+                                        'name': _offerInfoControllerInList
+                                            .offerInfo.offerList[index].name,
+                                        'description':
+                                            _offerInfoControllerInList.offerInfo
+                                                .offerList[index].description,
+                                        'price': _offerInfoControllerInList
+                                            .offerInfo.offerList[index].price,
+                                        'uid': _offerInfoControllerInList
+                                            .offerInfo.offerList[index].uid
+                                      });
+                                    },
+                                    child: const Icon(
+                                      Icons.edit,
+                                      size: 20,
+                                    )),
+                                GestureDetector(
+                                  child: const Icon(
+                                    Icons.delete,
+                                    size: 20,
+                                  ),
+                                  onTap: () {
+                                    Get.bottomSheet(
+                                        DeleteConfirm(_offerInfoControllerInList
+                                            .offerInfo.offerList[index].uid),
+                                        backgroundColor:
+                                            AppColors.scaffoldBackground,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(
+                                                    AppSizes.mediumLarge),
+                                                topRight: Radius.circular(
+                                                    AppSizes.mediumLarge))));
+                                  },
+                                )
+                              ],
+                            ),
+                            title: Obx(() => Text(_offerInfoControllerInList
+                                .offerInfo.offerList[index].name!)),
+                            subtitle: Text(_offerInfoControllerInList
+                                .offerInfo.offerList[index].description!),
+                            trailing: Text(
+                                '₱ ${_offerInfoControllerInList.offerInfo.offerList[index].price!}'),
+                          ))
+                      : Container();
                 },
                 childCount: _offerInfoController.offerInfo.offerList.length,
               ),

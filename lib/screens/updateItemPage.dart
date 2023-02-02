@@ -142,6 +142,11 @@ class UpdatePage extends StatelessWidget {
           child: AppButton(
             "Save Update",
             () async {
+              print(_userStateController.user.uid.value);
+              print(nameControlller.text);
+              print(descriptionController.text);
+              print("price: ${priceController.text != ''}" +
+                  priceController.text);
               DocumentReference docref = FirebaseManager()
                   .db
                   .collection('business')
@@ -163,7 +168,8 @@ class UpdatePage extends StatelessWidget {
                 log('done if');
               }
               if (priceController.text != '') {
-                await docref.update({"price": priceController.text});
+                await docref
+                    .update({"price": double.parse(priceController.text)});
                 log('done if');
               }
               Get.toNamed(Services.id);

@@ -225,6 +225,14 @@ class FirebaseManager {
             );
             break;
           case DocumentChangeType.modified:
+            if (_offerInfoController.offerInfo.offerList.contains(Offers(
+              docChange.doc.data()!['name'],
+              docChange.doc.data()!['description'],
+              docChange.doc.data()!['price'],
+              docChange.doc.data()!['uid'],
+            ))) {
+              return;
+            }
             _offerInfoController.updateItem(Offers(
               docChange.doc.data()!['name'],
               docChange.doc.data()!['description'],

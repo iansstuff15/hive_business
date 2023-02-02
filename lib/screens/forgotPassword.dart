@@ -2,6 +2,8 @@
 
 import 'dart:ui';
 
+import 'package:elegant_notification/elegant_notification.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_business/components/AppButton.dart';
@@ -19,12 +21,7 @@ class ForgotPassword extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
           child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/welcome.png"),
-                    fit: BoxFit.cover,
-                    opacity: 0.2),
-              ),
+              decoration: BoxDecoration(),
               padding: EdgeInsets.symmetric(
                   horizontal: AppSizes.mediumSmall, vertical: AppSizes.small),
               child: BackdropFilter(
@@ -51,7 +48,27 @@ class ForgotPassword extends StatelessWidget {
                         ),
                         AppButton(
                           "Send email verification",
-                          () => {},
+                          () async => {
+                            await FirebaseAuth.instance
+                                .sendPasswordResetEmail(
+                                    email: emailAddress.text)
+                                .then((value) => {
+                                      ElegantNotification(
+                                          description: Text("Success"),
+                                          icon: Icon(
+                                            Icons.check_circle,
+                                            color: Colors.green,
+                                          )).show(context)
+                                    })
+                                .catchError((error) => {
+                                      ElegantNotification(
+                                          description: Text("Error: ${error}"),
+                                          icon: Icon(
+                                            Icons.error_rounded,
+                                            color: Colors.redAccent,
+                                          )).show(context)
+                                    })
+                          },
                           width: double.infinity,
                           height: AppSizes.large,
                           textSize: AppSizes.small,

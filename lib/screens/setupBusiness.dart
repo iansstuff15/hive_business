@@ -93,6 +93,46 @@ class _SetupBusinessState extends State<SetupBusiness> {
   }
 
   @override
+  bool checkValues() {
+    if (widget.position == 0) {
+      if (businessName.text.isEmpty &&
+          description.text.isEmpty &&
+          phone.text.length != 10 &&
+          !phone.text.startsWith("09") &&
+          !businessEmail.text.contains("@") &&
+          !businessEmail.text.contains(".com")) {
+        return true;
+      }
+    }
+    if (widget.position == 1) {
+      if (businessType == ' ') {
+        return true;
+      }
+    }
+    if (widget.position == 2) {
+      if ((mondayStart == "Start" && mondayEnd == "End") &&
+          (tuesdayStart == "Start" && tuesdayEnd == "End") &&
+          (wednesdayStart == "Start" && wednesdayEnd == "End") &&
+          (thursdayStart == "Start" && thursdayEnd == "End") &&
+          (fridayStart == "Start" && fridayEnd == "End") &&
+          (saturdayStart == "Start" && saturdayEnd == "End") &&
+          (sundayStart == "Start" && sundayEnd == "End")) {
+        return true;
+      }
+    }
+    if (widget.position == 3) {
+      if (offersList.length == 0 || offersList.isEmpty) {
+        return true;
+      }
+    }
+    if (widget.position == 4) {
+      if (address == "Please choose an address") {
+        return true;
+      }
+    }
+    return false;
+  }
+
   Widget build(BuildContext context) {
     BottomLoader bl = BottomLoader(context,
         isDismissible: false,
@@ -155,6 +195,7 @@ class _SetupBusinessState extends State<SetupBusiness> {
                               Get.toNamed(AppPages.id);
                             }
                           },
+                          disabled: checkValues(),
                           width: double.infinity,
                         )
                       : Container(),

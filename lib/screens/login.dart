@@ -18,6 +18,7 @@ import 'package:hive_business/screens/home.dart';
 import 'package:hive_business/screens/register.dart';
 import 'package:hive_business/screens/setupBusiness.dart';
 import 'package:hive_business/statemanagement/user/userController.dart';
+import 'package:hive_business/utilities/colors.dart';
 import 'package:hive_business/utilities/sizes.dart';
 
 import '../main.dart';
@@ -42,113 +43,144 @@ class Login extends StatelessWidget {
                 topLeft: Radius.circular(AppSizes.small),
                 topRight: Radius.circular(AppSizes.small))));
     return Scaffold(
+      backgroundColor: AppColors.primary,
       body: SafeArea(
           child: Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: AppSizes.mediumSmall,
-                  vertical: AppSizes.extraSmall),
-              child: Flexible(
-                  child: BackdropFilter(
-                      filter: ImageFilter.blur(
-                          sigmaX: AppSizes.small, sigmaY: AppSizes.small),
-                      child: SafeArea(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              "Login",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: AppSizes.mediumLarge),
-                            ),
-                            SizedBox(
-                              height: AppSizes.small,
-                            ),
-                            AppInput("Email", TextInputType.emailAddress,
-                                emailAddress),
-                            SizedBox(
-                              height: AppSizes.small,
-                            ),
-                            AppInput(
-                              "Password",
-                              TextInputType.text,
-                              password,
-                              obsure: true,
-                            ),
-                            SizedBox(
-                              height: AppSizes.extraSmall,
-                            ),
-                            AppTextButton(
-                              "Forgot Password",
-                              () => {Get.toNamed(ForgotPassword.id)},
-                              width: double.infinity,
-                            ),
-                            SizedBox(
-                              height: AppSizes.extraSmall,
-                            ),
-                            AppButton(
-                              "Login",
-                              () async {
-                                await bl.display();
-                                String response = await FirebaseManager()
-                                    .login(emailAddress.text, password.text);
+              child: Stack(children: [
+        Align(
+            alignment: Alignment.bottomLeft,
+            child: Container(
+                padding: EdgeInsets.all(AppSizes.small),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Empowering small businesses,",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: AppSizes.small,
+                          color: AppColors.container),
+                    ),
+                    Text(
+                      "One click at a time",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: AppSizes.medium,
+                          color: AppColors.textColor),
+                    ),
+                  ],
+                ))),
+        Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+                height: AppSizes.getHeight(context) * 0.5,
+                decoration: BoxDecoration(
+                    color: AppColors.container,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(AppSizes.small),
+                        topRight: Radius.circular(AppSizes.small))),
+                padding: EdgeInsets.symmetric(
+                    horizontal: AppSizes.mediumSmall,
+                    vertical: AppSizes.extraSmall),
+                child: SafeArea(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        "Login",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: AppSizes.mediumLarge),
+                      ),
+                      SizedBox(
+                        height: AppSizes.small,
+                      ),
+                      AppInput(
+                          "Email", TextInputType.emailAddress, emailAddress),
+                      SizedBox(
+                        height: AppSizes.small,
+                      ),
+                      AppInput(
+                        "Password",
+                        TextInputType.text,
+                        password,
+                        obsure: true,
+                      ),
+                      SizedBox(
+                        height: AppSizes.extraSmall,
+                      ),
+                      AppTextButton(
+                        "Forgot Password",
+                        () => {Get.toNamed(ForgotPassword.id)},
+                        width: double.infinity,
+                      ),
+                      SizedBox(
+                        height: AppSizes.extraSmall,
+                      ),
+                      AppButton(
+                        "Login",
+                        () async {
+                          await bl.display();
+                          String response = await FirebaseManager()
+                              .login(emailAddress.text, password.text);
 
-                                ElegantNotification(
-                                        icon: response == "success"
-                                            ? Icon(
-                                                Icons.check_circle,
-                                                color: Colors.green,
-                                              )
-                                            : Icon(
-                                                Icons.error_rounded,
-                                                color: Colors.redAccent,
-                                              ),
-                                        showProgressIndicator: false,
-                                        displayCloseButton: false,
-                                        title: Text(response == "success"
-                                            ? "Sucess"
-                                            : "Error"),
-                                        description: Text(response == 'success'
-                                            ? "Welcome ${_userStateController.user.email}"
-                                            : response))
-                                    .show(context);
-                                bl.close();
-                                if (response == 'success') {
-                                  await FirebaseManager().getStoreInfo(
-                                      _userStateController.user.uid.toString());
-                                }
-                              },
-                              width: double.infinity,
-                              height: AppSizes.mediumLarge,
-                              textSize: AppSizes.small,
-                              textWeight: FontWeight.bold,
-                            ),
-                            SizedBox(
-                              height: AppSizes.small,
-                            ),
-                            // AppButton(
-                            //   "Sign in with Google",
-                            //   () => {},
-                            //   width: double.infinity,
-                            //   height: AppSizes.mediumLarge,
-                            //   textSize: AppSizes.small,
-                            //   textWeight: FontWeight.bold,
-                            //   background: Colors.white,
-                            //   foreground: Colors.black,
-                            //   icon: 'assets/google.svg',
-                            // ),
-                            // SizedBox(
-                            //   height: AppSizes.small,
-                            // ),
-                            AppTextButton(
-                              "Dont have an account yet? Sign up",
-                              () => {Get.toNamed(Register.id)},
-                              width: double.infinity,
-                            ),
-                          ],
-                        ),
-                      ))))),
+                          ElegantNotification(
+                                  icon: response == "success"
+                                      ? Icon(
+                                          Icons.check_circle,
+                                          color: Colors.green,
+                                        )
+                                      : Icon(
+                                          Icons.error_rounded,
+                                          color: Colors.redAccent,
+                                        ),
+                                  showProgressIndicator: false,
+                                  displayCloseButton: false,
+                                  title: Text(response == "success"
+                                      ? "Sucess"
+                                      : "Error"),
+                                  description: Text(response == 'success'
+                                      ? "Welcome ${_userStateController.user.email}"
+                                      : response))
+                              .show(context);
+                          bl.close();
+                          if (response == 'success') {
+                            await FirebaseManager().getStoreInfo(
+                                _userStateController.user.uid.toString());
+                          }
+                        },
+                        width: double.infinity,
+                        height: AppSizes.mediumLarge,
+                        textSize: AppSizes.small,
+                        textWeight: FontWeight.bold,
+                      ),
+                      SizedBox(
+                        height: AppSizes.small,
+                      ),
+                      // AppButton(
+                      //   "Sign in with Google",
+                      //   () => {},
+                      //   width: double.infinity,
+                      //   height: AppSizes.mediumLarge,
+                      //   textSize: AppSizes.small,
+                      //   textWeight: FontWeight.bold,
+                      //   background: Colors.white,
+                      //   foreground: Colors.black,
+                      //   icon: 'assets/google.svg',
+                      // ),
+                      // SizedBox(
+                      //   height: AppSizes.small,
+                      // ),
+                      AppTextButton(
+                        "Dont have an account yet? Sign up",
+                        () => {Get.toNamed(Register.id)},
+                        width: double.infinity,
+                      ),
+                    ],
+                  ),
+                )))
+      ]))),
     );
   }
 }

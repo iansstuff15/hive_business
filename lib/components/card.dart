@@ -35,32 +35,16 @@ class _AppCardState extends State<AppCard> {
           Stack(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(AppSizes.small),
-                ),
+                borderRadius: BorderRadius.circular(AppSizes.extraLarge),
                 child: Obx(() => Image(
                       image: NetworkImage(_businessInfoController
-                          .businessInfo.coverPhoto
+                          .businessInfo.profilePicFile
                           .toString()),
-                      height: 150,
-                      width: double.infinity,
+                      height: 100,
+                      width: 100,
                       fit: BoxFit.cover,
                     )),
-              ),
-              Positioned(
-                  left: 10,
-                  bottom: 10,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(AppSizes.extraLarge),
-                    child: Obx(() => Image(
-                          image: NetworkImage(_businessInfoController
-                              .businessInfo.coverPhoto
-                              .toString()),
-                          height: 100,
-                          width: 100,
-                          fit: BoxFit.cover,
-                        )),
-                  )),
+              )
             ],
           ),
           Container(
@@ -101,6 +85,31 @@ class _AppCardState extends State<AppCard> {
                 SizedBox(
                   height: AppSizes.extraSmall,
                 ),
+                Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(AppSizes.small),
+                    decoration: BoxDecoration(
+                        color: AppColors.container,
+                        borderRadius:
+                            BorderRadius.circular(AppSizes.extraSmall)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Current Earning',
+                          style: TextStyle(
+                              fontSize: AppSizes.small,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          '₱ 9000',
+                          style: TextStyle(fontSize: AppSizes.small),
+                        ),
+                      ],
+                    )),
+                SizedBox(
+                  height: AppSizes.extraSmall,
+                ),
                 Obx(() => AppButton(
                       _statusInfoController.statusInfo.isOnline.value
                           ? "Go Offline"
@@ -131,7 +140,7 @@ class _AppCardState extends State<AppCard> {
                       width: double.infinity,
                       background:
                           _statusInfoController.statusInfo.isOnline.value
-                              ? Color.fromARGB(255, 214, 101, 93)
+                              ? AppColors.textBox
                               : AppColors.primary,
                     ))
               ],

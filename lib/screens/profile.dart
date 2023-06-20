@@ -6,6 +6,7 @@ import 'package:hive_business/components/AppButton.dart';
 import 'package:hive_business/components/AppLayout.dart';
 import 'package:hive_business/components/AppRating.dart';
 import 'package:hive_business/components/AppTextButton.dart';
+import 'package:hive_business/components/FeaturedImage.dart';
 import 'package:hive_business/components/card.dart';
 import 'package:hive_business/components/contactInfo.dart';
 import 'package:hive_business/components/editUserInfo.dart';
@@ -33,17 +34,6 @@ class Profile extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // AppButton(
-            //   "Edit Account",
-            //   () {
-            //     Get.bottomSheet(EditUserInfo(),
-            //         backgroundColor: AppColors.scaffoldBackground,
-            //         shape: RoundedRectangleBorder(
-            //             borderRadius: BorderRadius.only(
-            //                 topLeft: Radius.circular(AppSizes.mediumLarge),
-            //                 topRight: Radius.circular(AppSizes.mediumLarge))));
-            //   },
-            // ),
             SizedBox(
               width: AppSizes.extraSmall,
             ),
@@ -67,7 +57,12 @@ class Profile extends StatelessWidget {
           scrollDirection: Axis.vertical,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [ContactInfo(), StoreHours(), AppRating()],
+            children: [
+              ContactInfo(),
+              StoreHours(),
+              FeaturedImage(),
+              AppRating(),
+            ],
           ),
         )
       ],

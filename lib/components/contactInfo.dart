@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_business/components/AppTextButton.dart';
+import 'package:hive_business/screens/updateContactInfo.dart';
 import 'package:hive_business/utilities/colors.dart';
 import 'package:hive_business/utilities/sizes.dart';
 
@@ -18,13 +20,18 @@ class ContactInfo extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Contact Information",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.primary,
-                  fontSize: AppSizes.mediumSmall),
-            ),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Text(
+                "Contact Information",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primary,
+                    fontSize: AppSizes.mediumSmall),
+              ),
+              AppTextButton("Edit", () {
+                Get.toNamed(UpdateContactPage.id);
+              })
+            ]),
             Column(children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -44,17 +51,17 @@ class ContactInfo extends StatelessWidget {
                             style: style,
                           )),
                     ]),
-                    TableRow(children: [
-                      Text(
-                        "Email",
-                        style: styleDay,
-                      ),
-                      Obx(() => Text(
-                            _businessInfoController.businessInfo.businessEmail
-                                .toString(),
-                            style: style,
-                          )),
-                    ]),
+                    // TableRow(children: [
+                    //   Text(
+                    //     "Email",
+                    //     style: styleDay,
+                    //   ),
+                    //   Obx(() => Text(
+                    //         _businessInfoController.businessInfo.businessEmail
+                    //             .toString(),
+                    //         style: style,
+                    //       )),
+                    // ]),
                   ],
                 ),
               ),

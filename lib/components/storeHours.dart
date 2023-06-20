@@ -1,16 +1,63 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_business/components/AppButton.dart';
+import 'package:hive_business/components/AppTextButton.dart';
+import 'package:hive_business/components/editUserInfo.dart';
+import 'package:hive_business/helper/firebase.dart';
+import 'package:hive_business/screens/editBusinessHours.dart';
+import 'package:hive_business/statemanagement/user/userController.dart';
 import 'package:hive_business/utilities/colors.dart';
 import 'package:hive_business/utilities/sizes.dart';
 
 import '../statemanagement/businessInfo/businessInfoController.dart';
 
-class StoreHours extends StatelessWidget {
+class StoreHours extends StatefulWidget {
+  @override
+  State<StoreHours> createState() => _StoreHoursState();
+}
+
+class _StoreHoursState extends State<StoreHours> {
   final TextStyle style = TextStyle(fontSize: AppSizes.tweenSmall);
+
   final TextStyle styleDay =
       TextStyle(fontSize: AppSizes.tweenSmall, fontWeight: FontWeight.bold);
+
   BusinessInfoController _businessInfoController =
       Get.find<BusinessInfoController>();
+
+  UserStateController _userStateController = Get.find<UserStateController>();
+
+  getBusinessInfo() {}
+
+  String? mondayStart = '';
+  String? tuesdayStart = '';
+  String? wednesdayStart = '';
+  String? thursdayStart = '';
+  String? fridayStart = '';
+  String? saturdayStart = '';
+  String? sundayStart = '';
+
+  String? mondayEnd = '';
+  String? tuesdayEnd = '';
+  String? wednesdayEnd = '';
+  String? thursdayEnd = '';
+  String? fridayEnd = '';
+  String? saturdayEnd = '';
+  String? sundayEnd = '';
+  CollectionReference docRef = FirebaseManager().db.collection('business');
+  TimeOfDay now = TimeOfDay.now();
+  Future<String> showTimeSelector() async {
+    final TimeOfDay? picked_s = await showTimePicker(
+      context: context,
+      initialTime: now,
+    );
+    log(picked_s!.format(context).toString());
+    return picked_s!.format(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,12 +65,23 @@ class StoreHours extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Store Hours",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.primary,
-                  fontSize: AppSizes.mediumSmall),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Business Hours",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.primary,
+                      fontSize: AppSizes.mediumSmall),
+                ),
+                AppTextButton(
+                  "Edit Account",
+                  () {
+                    Get.toNamed(EditBusinessHours.id);
+                  },
+                ),
+              ],
             ),
             Column(children: <Widget>[
               Padding(

@@ -10,8 +10,14 @@ class AppInput extends StatefulWidget {
   bool? obsure;
   TextEditingController? controller;
   int? maxLines;
+  double? height;
+  double? width;
+
   AppInput(this.placeholder, this.keyboard, this.controller,
-      {this.obsure = false, this.maxLines = 1});
+      {this.obsure = false,
+      this.maxLines = 1,
+      this.height = 50,
+      this.width = double.infinity});
   @override
   State<AppInput> createState() => _AppInputState();
 }
@@ -20,6 +26,7 @@ class _AppInputState extends State<AppInput> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: widget.width,
       padding: EdgeInsets.symmetric(horizontal: AppSizes.small),
       decoration: BoxDecoration(
           color: AppColors.textBox,

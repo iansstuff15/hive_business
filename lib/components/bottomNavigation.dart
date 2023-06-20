@@ -20,7 +20,7 @@ class AppBottomNavigation extends StatelessWidget {
     return BottomAppBar(
       elevation: 0,
       color: AppColors.container,
-      height: AppSizes.getHeight(context) * 0.1,
+      height: AppSizes.getHeight(context) * 0.09,
       padding: EdgeInsets.symmetric(horizontal: AppSizes.extraSmall),
       notchMargin: AppSizes.extraSmall,
       shape: CircularNotchedRectangle(),
@@ -38,15 +38,15 @@ class AppBottomNavigation extends StatelessWidget {
                       size: AppSizes.medium,
                       color: AppColors.textColor,
                     ),
-                    () => Get.toNamed(Home.id)),
+                    () => Get.offNamed(Home.id)),
                 NavigationButton(
                     'Services',
-                    SvgPicture.asset(
-                      'assets/services.svg',
-                      width: AppSizes.mediumSmall,
-                      height: AppSizes.mediumSmall,
+                    Icon(
+                      Icons.list,
+                      size: AppSizes.medium,
+                      color: AppColors.textColor,
                     ),
-                    () => Get.toNamed(Services.id)),
+                    () => Get.offNamed(Services.id)),
                 NavigationButton(
                     'Transactions',
                     Icon(
@@ -54,7 +54,7 @@ class AppBottomNavigation extends StatelessWidget {
                       size: AppSizes.medium,
                       color: AppColors.textColor,
                     ),
-                    () => Get.toNamed(Transactions.id)),
+                    () => Get.offNamed(Transactions.id)),
                 NavigationButton(
                     'Profile',
                     ClipRRect(
@@ -68,7 +68,7 @@ class AppBottomNavigation extends StatelessWidget {
                       borderRadius: BorderRadius.circular(AppSizes.extraLarge),
                     ),
                     () => {
-                          Get.toNamed(
+                          Get.offNamed(
                             Profile.id,
                           )
                         })

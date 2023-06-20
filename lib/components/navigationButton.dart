@@ -22,31 +22,29 @@ class _NavigationButtonState extends State<NavigationButton> {
     return GestureDetector(
         onTap: widget.function,
         child: Container(
-            margin: EdgeInsets.all(AppSizes.extraSmall),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                      color: route == widget.label!.toLowerCase()
-                          ? AppColors.primary
-                          : Colors.transparent,
-                      borderRadius: BorderRadius.circular(AppSizes.extraLarge)),
-                  padding: EdgeInsets.all(route == widget.label!.toLowerCase()
-                      ? AppSizes.extraSmall
-                      : 0),
-                  child: widget.icon!,
-                ),
-                SizedBox(
-                  height: AppSizes.extraSmall,
-                ),
-                route == widget.label!.toLowerCase()
-                    ? SizedBox()
-                    : Text(
-                        widget.label!,
-                      ),
-              ],
-            )));
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              padding: EdgeInsets.all(AppSizes.extraSmall),
+              margin: EdgeInsets.all(AppSizes.extraSmall),
+              decoration: BoxDecoration(
+                  color: route == widget.label!.toLowerCase()
+                      ? AppColors.primary
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(AppSizes.extraLarge)),
+              child: widget.icon!,
+            ),
+            // Text(
+            //   widget.label!,
+            //   style: TextStyle(
+            //     fontWeight: route == widget.label!.toLowerCase()
+            //         ? FontWeight.bold
+            //         : FontWeight.normal,
+            //   ),
+            // ),
+          ],
+        )));
   }
 }

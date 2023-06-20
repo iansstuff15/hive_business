@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import 'package:hive_business/screens/appPages.dart';
+import 'package:hive_business/screens/editBusinessHours.dart';
 import 'package:hive_business/screens/forgotPassword.dart';
 import 'package:hive_business/screens/home.dart';
 import 'package:hive_business/screens/login.dart';
@@ -10,7 +11,11 @@ import 'package:hive_business/screens/profile.dart';
 import 'package:hive_business/screens/register.dart';
 import 'package:hive_business/screens/services.dart';
 import 'package:hive_business/screens/setupBusiness.dart';
+import 'package:hive_business/screens/transactionPage.dart';
 import 'package:hive_business/screens/transactions.dart';
+import 'package:hive_business/screens/updateContactInfo.dart';
+import 'package:hive_business/screens/updateFeaturedImages.dart';
+import 'package:hive_business/screens/updateItemPage.dart';
 import 'package:hive_business/screens/welcome.dart';
 import 'package:hive_business/utilities/themeData.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,7 +33,6 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -45,6 +49,11 @@ class MyApp extends StatelessWidget {
         Services.id: (context) => Services(),
         SetupBusiness.id: (context) => SetupBusiness(),
         Transactions.id: (context) => Transactions(),
+        TransactionPage.id: (context) => TransactionPage(),
+        UpdatePage.id: (context) => UpdatePage(),
+        EditBusinessHours.id: (context) => EditBusinessHours(),
+        UpdateContactPage.id: (context) => UpdateContactPage(),
+        UpdateFeaturedImagePage.id: (context) => UpdateFeaturedImagePage(),
       },
       initialRoute: Login.id,
     );

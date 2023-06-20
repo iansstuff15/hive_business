@@ -43,7 +43,7 @@ class _ReviewItemState extends State<ReviewItem> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Powell, Diriangen Lempira D',
+                              'Montiero, Gilbert',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: AppSizes.small,
@@ -51,7 +51,7 @@ class _ReviewItemState extends State<ReviewItem> {
                               ),
                             ),
                             Text(
-                              'Date',
+                              '04/29/2023',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: AppSizes.tweenSmall,

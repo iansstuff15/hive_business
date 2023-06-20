@@ -34,6 +34,7 @@ class _AppButtonState extends State<AppButton> {
       child: ElevatedButton(
           onPressed: widget.onPressed,
           style: ButtonStyle(
+              elevation: MaterialStateProperty.all(0),
               backgroundColor: MaterialStateProperty.all(widget.background)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

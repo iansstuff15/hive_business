@@ -8,6 +8,13 @@ import 'package:hive_business/utilities/colors.dart';
 import 'package:hive_business/utilities/sizes.dart';
 
 class Statistics extends StatefulWidget {
+  String? columnMonthly;
+  String? columnYTD;
+  String? columnYearly;
+  Statistics(
+      {required this.columnMonthly,
+      required this.columnYTD,
+      required this.columnYearly});
   @override
   State<Statistics> createState() => _StatisticsState();
 }
@@ -30,7 +37,7 @@ class _StatisticsState extends State<Statistics> {
                   'Monthly ',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text('₱ data'),
+                Text(widget.columnMonthly!),
               ],
             ),
             Column(
@@ -40,7 +47,7 @@ class _StatisticsState extends State<Statistics> {
                   'Year to Date',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text('₱ data'),
+                Text(widget.columnYTD!),
               ],
             ),
             Column(
@@ -50,7 +57,7 @@ class _StatisticsState extends State<Statistics> {
                   'Yearly',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text('₱ data'),
+                Text(widget.columnYearly!),
               ],
             )
           ],

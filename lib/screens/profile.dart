@@ -60,7 +60,7 @@ class Profile extends StatelessWidget {
             children: [
               ContactInfo(),
               StoreHours(),
-              FeaturedImage(),
+              // FeaturedImage(),
               AppRating(),
             ],
           ),

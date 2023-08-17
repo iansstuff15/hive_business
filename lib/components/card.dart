@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:hive_business/data%20models/status.dart';
 import 'package:hive_business/helper/firebase.dart';
 import 'package:hive_business/statemanagement/statusInfo/statusInfoController.dart';
+import 'package:hive_business/statemanagement/user/userController.dart';
 import 'package:hive_business/utilities/biometrics.dart';
 
 import '../statemanagement/businessInfo/businessInfoController.dart';
@@ -19,11 +21,29 @@ class AppCard extends StatefulWidget {
 }
 
 class _AppCardState extends State<AppCard> {
+  UserStateController userInfo = Get.find<UserStateController>();
   BusinessInfoController _businessInfoController =
       Get.find<BusinessInfoController>();
   StatusInfoController _statusInfoController = Get.find<StatusInfoController>();
   @override
   Widget build(BuildContext context) {
+    double calculateTotalPriceSum(List documents) {
+      double sum = 0.0; // Use double for the sum
+
+      for (QueryDocumentSnapshot<Map<String, dynamic>> document in documents) {
+        Map<String, dynamic>? data = document.data();
+        if (data['status'] == 'Completed') {
+          if (data != null) {
+            sum += data['totalPrice'] ??
+                0.toDouble(); // Convert to double if it's a num (int or double)
+          }
+        }
+      }
+      print("sum.toString()");
+      print(sum.toString());
+      return sum;
+    }
+
     return Container(
       decoration: BoxDecoration(
           color: AppColors.scaffoldBackground,
@@ -101,10 +121,31 @@ class _AppCardState extends State<AppCard> {
                               fontSize: AppSizes.small,
                               fontWeight: FontWeight.bold),
                         ),
-                        Text(
-                          '₱ 9000',
-                          style: TextStyle(fontSize: AppSizes.small),
-                        ),
+                        Obx(() => StreamBuilder(
+                              stream: FirebaseFirestore.instance
+                                  .collection('orders')
+                                  .where(
+                                    "businessID",
+                                    isEqualTo: userInfo.user.uid.value,
+                                  )
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
+
+                                var documents = snapshot.data!.docs;
+                                print(documents.runtimeType);
+                                print(documents.toString());
+                                print(documents.isEmpty);
+                                return Text(
+                                  '₱ ${calculateTotalPriceSum(documents)}',
+                                  style: TextStyle(fontSize: AppSizes.small),
+                                );
+                              },
+                            )),
                       ],
                     )),
                 SizedBox(
@@ -122,7 +163,13 @@ class _AppCardState extends State<AppCard> {
                             if (user != null) {
                               Status status =
                                   Status(status: false, uid: user.uid);
-                              FirebaseManager().setStatus(user.uid, status);
+                              FirebaseManager().setStatus(
+                                  user.uid,
+                                  status,
+                                  _businessInfoController
+                                      .businessInfo.businessLat.value,
+                                  _businessInfoController
+                                      .businessInfo.businessLng.value);
                             }
                           });
                         } else {
@@ -132,7 +179,13 @@ class _AppCardState extends State<AppCard> {
                             if (user != null) {
                               Status status =
                                   Status(status: true, uid: user.uid);
-                              FirebaseManager().setStatus(user.uid, status);
+                              FirebaseManager().setStatus(
+                                  user.uid,
+                                  status,
+                                  _businessInfoController
+                                      .businessInfo.businessLat.value,
+                                  _businessInfoController
+                                      .businessInfo.businessLng.value);
                             }
                           });
                         }

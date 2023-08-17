@@ -127,36 +127,43 @@ class FirebaseManager {
   }
 
   Future<void> getStoreInfo(String docUID) async {
+    print(docUID.toString());
     final storeRef = db.collection('business').doc(docUID);
 
     storeRef.snapshots().listen((event) {
-      log(event.data().toString());
+      print("event.data().toString()");
+      print(event.data().toString());
       if (event.data() != null) {
         businessInfoController.setBussinessInfo(
-            bussinessName: event.data()!['businessName'],
-            description: event.data()!['description'],
-            phone: event.data()!['phone'],
-            bussinessEmail: event.data()!['businessEmail'],
-            bussinessType: event.data()!['type'],
-            bussinessLat: event.data()!["lat"],
-            bussinessLng: event.data()!["lng"],
+            bussinessName:
+                event.data()?['businessName'] ?? 'No business name found',
+            description: event.data()?['description'] ?? 'No description found',
+            phone: event.data()?['phone'] ?? 'No phone found',
+            bussinessEmail:
+                event.data()?['businessEmail'] ?? 'No business email found',
+            bussinessType: event.data()?['type'] ?? 'No type found',
+            bussinessLat: event.data()?["lat"] ?? 'No latitude found',
+            bussinessLng: event.data()?["lng"] ?? 'No longitude found',
             profilePicture: event.data()?["profilePicture"] ??
                 'https://firebasestorage.googleapis.com/v0/b/hive-5eb83.appspot.com/o/appImages%2Fuser.png?alt=media&token=58782874-3a2e-4546-be3e-e619e4ea95b1 ',
-            mondayStart: event.data()!["mondayStart"],
-            mondayEnd: event.data()!["mondayEnd"],
-            tuesdayStart: event.data()!["tuesdayStart"],
-            tuesdayEnd: event.data()!["tuesdayEnd"],
-            wednesdayStart: event.data()!["wednesdayStart"],
-            wednesdayEnd: event.data()!["wednesdayEnd"],
-            thursdayStart: event.data()!["thursdayStart"],
-            thursdayEnd: event.data()!["thursdayEnd"],
-            fridayStart: event.data()!["fridayStart"],
-            fridayEnd: event.data()!["fridayEnd"],
-            saturdayStart: event.data()!["saturdayStart"],
-            saturdayEnd: event.data()!["saturdayEnd"],
-            sundayStart: event.data()!["sundayStart"],
-            sundayEnd: event.data()!["sundayEnd"],
-            address: event.data()!['address'],
+            mondayStart: event.data()?["mondayStart"] ?? 'No schedule found',
+            mondayEnd: event.data()?["mondayEnd"] ?? 'No schedule found',
+            tuesdayStart: event.data()?["tuesdayStart"] ?? 'No schedule found',
+            tuesdayEnd: event.data()?["tuesdayEnd"] ?? 'No schedule found',
+            wednesdayStart:
+                event.data()?["wednesdayStart"] ?? 'No schedule found',
+            wednesdayEnd: event.data()?["wednesdayEnd"] ?? 'No schedule found',
+            thursdayStart:
+                event.data()?["thursdayStart"] ?? 'No schedule found',
+            thursdayEnd: event.data()?["thursdayEnd"] ?? 'No schedule found',
+            fridayStart: event.data()?["fridayStart"] ?? 'No schedule found',
+            fridayEnd: event.data()?["fridayEnd"] ?? 'No schedule found',
+            saturdayStart:
+                event.data()?["saturdayStart"] ?? 'No schedule found',
+            saturdayEnd: event.data()?["saturdayEnd"] ?? 'No schedule found',
+            sundayStart: event.data()?["sundayStart"] ?? 'No schedule found',
+            sundayEnd: event.data()?["sundayEnd"] ?? 'No schedule found',
+            address: event.data()?['address'] ?? 'No address found',
             coverPhoto: event.data()?['coverPhoto'] ??
                 'https://firebasestorage.googleapis.com/v0/b/hive-5eb83.appspot.com/o/appImages%2F233-2332677_ega-png.png?alt=media&token=4da7ddf6-15c2-46ad-8982-c46af5aa54c9');
         getOffers(docUID);
@@ -168,9 +175,10 @@ class FirebaseManager {
     });
   }
 
-  Future<String> setStatus(String uid, Status status) async {
+  Future<String> setStatus(
+      String uid, Status status, double lat, double lng) async {
     final statusRef = db.collection('businessStatus').doc(uid);
-    final data = {"status": status.status, "uid": uid};
+    final data = {"status": status.status, "uid": uid, "lat": lat, "lng": lng};
     statusRef
         .set(
           data,
@@ -283,3 +291,5 @@ class FirebaseManager {
     return 'Enter a proper email';
   }
 }
+
+Future<void> logActivity() async {}

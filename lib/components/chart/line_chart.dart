@@ -21,7 +21,7 @@ class _LineChartSample2State extends State<AppLineChart> {
     return Stack(
       children: <Widget>[
         AspectRatio(
-          aspectRatio: 1.70,
+          aspectRatio: 2.0,
           child: LineChart(
             showAvg ? avgData() : mainData(),
           ),
@@ -55,14 +55,42 @@ class _LineChartSample2State extends State<AppLineChart> {
         color: AppColors.primary);
     Widget text;
     switch (value.toInt()) {
+      case 0:
+        text = Text('JAN', style: style);
+        break;
+      case 1:
+        text = Text('FEB', style: style);
+        break;
       case 2:
         text = Text('MAR', style: style);
+        break;
+      case 3:
+        text = Text('APR', style: style);
+
+        break;
+      case 4:
+        text = Text('MAY', style: style);
         break;
       case 5:
         text = Text('JUN', style: style);
         break;
+      case 6:
+        text = Text('JUL', style: style);
+        break;
+      case 7:
+        text = Text('AUG', style: style);
+        break;
       case 8:
         text = Text('SEP', style: style);
+        break;
+      case 9:
+        text = Text('OCT', style: style);
+        break;
+      case 10:
+        text = Text('NOV', style: style);
+        break;
+      case 11:
+        text = Text('DEC', style: style);
         break;
       default:
         text = Text('', style: style);
@@ -166,7 +194,7 @@ class _LineChartSample2State extends State<AppLineChart> {
           gradient: LinearGradient(
             colors: gradientColors,
           ),
-          barWidth: 5,
+          barWidth: 3,
           isStrokeCapRound: true,
           dotData: FlDotData(
             show: false,

@@ -3,11 +3,26 @@ import 'package:flutter/material.dart';
 
 import '../../utilities/colors.dart';
 
-class _BarChart extends StatelessWidget {
-  const _BarChart();
+class ReviewBarChart extends StatefulWidget {
+  Map<int, double>? data;
+  ReviewBarChart({required this.data});
+  @override
+  State<ReviewBarChart> createState() => ReviewBarChartState();
+}
+
+class ReviewBarChartState extends State<ReviewBarChart> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("widget.data.toString()");
+    print(widget.data.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
+    print("widget.toString()");
+    print(widget.data.toString());
     return BarChart(
       BarChartData(
         barTouchData: barTouchData,
@@ -117,7 +132,7 @@ class _BarChart extends StatelessWidget {
           x: 0,
           barRods: [
             BarChartRodData(
-              toY: 8,
+              toY: widget.data?[1] ?? 0.0,
               gradient: _barsGradient,
             )
           ],
@@ -127,7 +142,7 @@ class _BarChart extends StatelessWidget {
           x: 1,
           barRods: [
             BarChartRodData(
-              toY: 10,
+              toY: widget.data?[2] ?? 0.0,
               gradient: _barsGradient,
             )
           ],
@@ -137,7 +152,7 @@ class _BarChart extends StatelessWidget {
           x: 2,
           barRods: [
             BarChartRodData(
-              toY: 14,
+              toY: widget.data?[3] ?? 0.0,
               gradient: _barsGradient,
             )
           ],
@@ -147,7 +162,7 @@ class _BarChart extends StatelessWidget {
           x: 3,
           barRods: [
             BarChartRodData(
-              toY: 15,
+              toY: widget.data?[4] ?? 0.0,
               gradient: _barsGradient,
             )
           ],
@@ -157,26 +172,11 @@ class _BarChart extends StatelessWidget {
           x: 4,
           barRods: [
             BarChartRodData(
-              toY: 13,
+              toY: widget.data?[5] ?? 0.0,
               gradient: _barsGradient,
             )
           ],
           showingTooltipIndicators: [0],
         ),
       ];
-}
-
-class AppReviewBarChart extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => AppReviewBarChartState();
-}
-
-class AppReviewBarChartState extends State<AppReviewBarChart> {
-  @override
-  Widget build(BuildContext context) {
-    return const AspectRatio(
-      aspectRatio: 1.6,
-      child: _BarChart(),
-    );
-  }
 }

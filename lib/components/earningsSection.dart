@@ -12,6 +12,8 @@ class EarningsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    int currentMonth = now.month;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -25,7 +27,11 @@ class EarningsSection extends StatelessWidget {
         SizedBox(
           height: AppSizes.extraSmall,
         ),
-        Statistics(),
+        Statistics(
+          columnMonthly: '0',
+          columnYTD: '0',
+          columnYearly: '0',
+        ),
         SizedBox(
           height: AppSizes.extraSmall,
         ),

@@ -50,10 +50,6 @@ class Home extends StatelessWidget {
             SizedBox(
               height: AppSizes.medium,
             ),
-            TransactionGrid(),
-            SizedBox(
-              height: AppSizes.medium,
-            ),
           ],
         ),
       ),

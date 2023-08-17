@@ -44,7 +44,6 @@ class _RegisterState extends State<Register> {
                 topLeft: Radius.circular(AppSizes.small),
                 topRight: Radius.circular(AppSizes.small))));
     return Scaffold(
-      backgroundColor: AppColors.primary,
       body: SafeArea(
           child: Stack(
         children: [
@@ -54,29 +53,13 @@ class _RegisterState extends State<Register> {
                   padding: EdgeInsets.all(AppSizes.small),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Empowering small businesses,",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: AppSizes.small,
-                            color: AppColors.container),
-                      ),
-                      Text(
-                        "One click at a time",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: AppSizes.medium,
-                            color: AppColors.textColor),
-                      ),
-                    ],
+                    children: [],
                   ))),
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
                 height: AppSizes.getHeight(context) * 0.5,
                 decoration: BoxDecoration(
-                    color: AppColors.container,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(AppSizes.small),
                         topRight: Radius.circular(AppSizes.small))),

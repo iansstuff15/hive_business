@@ -337,7 +337,7 @@ class TransactionPage extends StatelessWidget {
                                     color: AppColors.textBox),
                               ),
                               Text(
-                                docdata['businessEmail'],
+                                docdata['businessEmail']??"No data found",
                                 style: TextStyle(
                                     fontSize: AppSizes.small,
                                     color: AppColors.textColor),
@@ -355,7 +355,7 @@ class TransactionPage extends StatelessWidget {
                                     color: AppColors.textBox),
                               ),
                               Text(
-                                docdata['phone'],
+                                docdata['phone']??"No data found",
                                 style: TextStyle(
                                     fontSize: AppSizes.small,
                                     color: AppColors.textColor),
@@ -381,7 +381,7 @@ class TransactionPage extends StatelessWidget {
                                     color: AppColors.textBox),
                               ),
                               Text(
-                                docdata['type'],
+                                docdata['type']??"No data found",
                                 style: TextStyle(
                                     fontSize: AppSizes.small,
                                     color: AppColors.textColor),
@@ -401,7 +401,7 @@ class TransactionPage extends StatelessWidget {
                               SizedBox(
                                 width: AppSizes.extraLarge,
                                 child: Text(
-                                  docdata['businessName'],
+                                  docdata['businessName']??"No data found",
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       fontSize: AppSizes.small,
@@ -434,7 +434,7 @@ class TransactionPage extends StatelessWidget {
                             color: AppColors.textBox),
                       ),
                       Text(
-                        data[1],
+                        data[1]??"No data found",
                         style: TextStyle(
                             fontSize: AppSizes.small,
                             color: AppColors.textColor),
@@ -445,7 +445,7 @@ class TransactionPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        'Time Booked',
+                        'Time Booked'??"No data found",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: AppSizes.small,

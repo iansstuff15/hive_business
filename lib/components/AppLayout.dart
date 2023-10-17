@@ -28,93 +28,122 @@ class _AppLayoutState extends State<AppLayout> {
   TextEditingController productName = TextEditingController();
   TextEditingController productDescription = TextEditingController();
   TextEditingController productPrice = TextEditingController();
+  bool disableCTA = true;
   @override
   Widget build(BuildContext context) {
+    checkValues() {
+      print(
+          "prodcuts bool ${productName.text.isEmpty && productDescription.text.isEmpty && productPrice.text.isEmpty}");
+      if (productName.text.isEmpty &&
+          productDescription.text.isEmpty &&
+          productPrice.text.isEmpty) {
+        setState(() {
+          disableCTA = true;
+        });
+      } else {
+        setState(() {
+          disableCTA = false;
+        });
+      }
+    }
+
+    productName.addListener(() {
+      checkValues();
+    });
+    productDescription.addListener(() {
+      checkValues();
+    });
+    productPrice.addListener(() {
+      checkValues();
+    });
+
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.bottomSheet(
-              SingleChildScrollView(
-                  child: Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: AppSizes.getHeight(context) * 0.02,
-                    horizontal: AppSizes.small),
-                child: Expanded(
-                    child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // SizedBox(
-                    //   height: AppSizes.e,
-                    // ),
+          Get.bottomSheet(StatefulBuilder(builder: (context, setState) {
+            return SingleChildScrollView(
+                child: Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: AppSizes.getHeight(context) * 0.02,
+                  horizontal: AppSizes.small),
+              child: Expanded(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // SizedBox(
+                  //   height: AppSizes.e,
+                  // ),
 
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                          horizontal: AppSizes.getWitdth(context) * 0.25),
-                      decoration: BoxDecoration(
-                          color: AppColors.textColor,
-                          borderRadius:
-                              BorderRadius.circular(AppSizes.mediumSmall)),
-                      height: AppSizes.extraSmall,
-                      width: AppSizes.getWitdth(context) * 0.5,
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                        horizontal: AppSizes.getWitdth(context) * 0.25),
+                    decoration: BoxDecoration(
+                        color: AppColors.textColor,
+                        borderRadius:
+                            BorderRadius.circular(AppSizes.mediumSmall)),
+                    height: AppSizes.extraSmall,
+                    width: AppSizes.getWitdth(context) * 0.5,
+                  ),
+                  SizedBox(
+                    height: AppSizes.mediumSmall,
+                  ),
+                  Text(
+                    "Add your product",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: AppSizes.small,
                     ),
-                    SizedBox(
-                      height: AppSizes.mediumSmall,
-                    ),
-                    Text(
-                      "Add your product",
-                      style: TextStyle(
+                  ),
+                  Text(
+                    "Information",
+                    style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: AppSizes.small,
-                      ),
-                    ),
-                    Text(
-                      "Information",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: AppSizes.mediumSmall,
-                          color: AppColors.primary),
-                    ),
-                    SizedBox(
-                      height: AppSizes.mediumSmall,
-                    ),
-                    AppInput("Name", TextInputType.text, productName),
-                    SizedBox(
-                      height: AppSizes.small,
-                    ),
-                    AppInput(
-                      "Description",
-                      TextInputType.multiline,
-                      productDescription,
-                      maxLines: 3,
-                    ),
-                    SizedBox(
-                      height: AppSizes.small,
-                    ),
-                    AppInput("Price (Php)", TextInputType.number, productPrice),
-                    SizedBox(
-                      height: AppSizes.tweenSmall,
-                    ),
-                    AppButton(
-                      "Add Item",
-                      () {
-                        setState(() {
-                          offersList!.add(Offers(
-                              productName.text,
-                              productDescription.text,
+                        fontSize: AppSizes.mediumSmall,
+                        color: AppColors.primary),
+                  ),
+                  SizedBox(
+                    height: AppSizes.mediumSmall,
+                  ),
+                  AppInput("Name", TextInputType.text, productName),
+                  SizedBox(
+                    height: AppSizes.small,
+                  ),
+                  AppInput(
+                    "Description",
+                    TextInputType.multiline,
+                    productDescription,
+                    maxLines: 3,
+                  ),
+                  SizedBox(
+                    height: AppSizes.small,
+                  ),
+                  AppInput("Price (Php)", TextInputType.number, productPrice),
+                  SizedBox(
+                    height: AppSizes.tweenSmall,
+                  ),
+                  AppButton(
+                    "Add Item",
+                    () {
+                      setState(() {
+                        offersList!.add(Offers(
+                            productName.text,
+                            productDescription.text,
+                            double.parse(productPrice.text)));
+                      });
+                      FirebaseManager().publishProduct(
+                          _userStateController.user.uid.value,
+                          Offers(productName.text, productDescription.text,
                               double.parse(productPrice.text)));
-                        });
-                        FirebaseManager().publishProduct(
-                            _userStateController.user.uid.value,
-                            Offers(productName.text, productDescription.text,
-                                double.parse(productPrice.text)));
-                        Get.back();
-                      },
-                      width: double.infinity,
-                    )
-                  ],
-                )),
+                      Get.back();
+                    },
+                    width: double.infinity,
+                    disabled: disableCTA,
+                  )
+                ],
               )),
+            ));
+          }),
               backgroundColor: AppColors.scaffoldBackground,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(

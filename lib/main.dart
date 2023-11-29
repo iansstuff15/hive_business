@@ -9,7 +9,7 @@ import 'package:hive_business/screens/home.dart';
 import 'package:hive_business/screens/login.dart';
 import 'package:hive_business/screens/profile.dart';
 import 'package:hive_business/screens/register.dart';
-import 'package:hive_business/screens/services.dart';
+import 'package:hive_business/screens/serviceList.dart';
 import 'package:hive_business/screens/setupBusiness.dart';
 import 'package:hive_business/screens/transactionPage.dart';
 import 'package:hive_business/screens/transactions.dart';
@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Hive Business',
       theme: AppCommonData.appTheme,
+      debugShowCheckedModeBanner: false,
       routes: {
         Welcome.id: (context) => Welcome(),
         Login.id: (context) => Login(),

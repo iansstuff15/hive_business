@@ -23,7 +23,7 @@ class AppInput extends StatefulWidget {
 }
 
 class _AppInputState extends State<AppInput> {
-  String errorText = "";
+  String? errorText;
   @override
   Widget build(BuildContext context) {
     widget.controller!.addListener(() {
@@ -33,7 +33,7 @@ class _AppInputState extends State<AppInput> {
         });
       } else {
         setState(() {
-          errorText = "";
+          errorText = null;
         });
       }
       if (widget.obsure!) {
@@ -43,7 +43,7 @@ class _AppInputState extends State<AppInput> {
           });
         } else {
           setState(() {
-            errorText = "";
+            errorText = null;
           });
         }
       }
@@ -55,7 +55,7 @@ class _AppInputState extends State<AppInput> {
           });
         } else {
           setState(() {
-            errorText = "";
+            errorText = null;
           });
         }
       }
@@ -67,7 +67,7 @@ class _AppInputState extends State<AppInput> {
           });
         } else {
           setState(() {
-            errorText = "";
+            errorText = null;
           });
         }
       }

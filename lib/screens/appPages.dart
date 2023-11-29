@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_business/components/AppLayout.dart';
 import 'package:hive_business/screens/profile.dart';
-import 'package:hive_business/screens/services.dart';
+import 'package:hive_business/screens/serviceList.dart';
 
 import 'home.dart';
 

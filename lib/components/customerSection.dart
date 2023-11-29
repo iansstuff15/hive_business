@@ -37,7 +37,6 @@ class CustomerSection extends StatelessWidget {
         SizedBox(
           height: AppSizes.extraSmall,
         ),
-        AppLineChart()
       ],
     );
   }

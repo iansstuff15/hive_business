@@ -44,7 +44,7 @@ class _StatisticsState extends State<Statistics> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Year to Date',
+                  'Weekly',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Text(widget.columnYTD!),

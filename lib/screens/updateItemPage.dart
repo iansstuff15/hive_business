@@ -8,7 +8,8 @@ import 'package:get/get.dart';
 import 'package:hive_business/components/AppButton.dart';
 import 'package:hive_business/components/AppInput.dart';
 import 'package:hive_business/helper/firebase.dart';
-import 'package:hive_business/screens/services.dart';
+import 'package:hive_business/screens/serviceList.dart';
+
 import 'package:hive_business/statemanagement/user/userController.dart';
 import 'package:hive_business/utilities/colors.dart';
 import 'package:hive_business/utilities/sizes.dart';
@@ -27,7 +28,7 @@ class UpdatePage extends StatelessWidget {
     final Map arguements = Get.arguments;
     final String name = arguements['name'];
     final String description = arguements['description'];
-    final double price = arguements['price'];
+    final double price = double.parse(arguements['price']);
     final String uid = arguements['uid'];
 
     return Scaffold(

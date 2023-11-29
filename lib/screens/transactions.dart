@@ -1,15 +1,25 @@
+import 'dart:io';
+
 import 'package:chips_choice/chips_choice.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
+import 'package:hive_business/components/AppButton.dart';
 import 'package:hive_business/components/AppInput.dart';
 import 'package:hive_business/components/AppLayout.dart';
 import 'package:hive_business/components/transactionListItem.dart';
 import 'package:hive_business/statemanagement/user/userController.dart';
 import 'package:hive_business/utilities/colors.dart';
 import 'package:hive_business/utilities/sizes.dart';
+import 'package:csv/csv.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:convert';
+
+import 'package:url_launcher/url_launcher.dart';
 
 class Transactions extends StatefulWidget {
   static String id = 'transactions';
@@ -50,6 +60,16 @@ class _TransactionsState extends State<Transactions> {
                 width: AppSizes.getWitdth(context) * 0.9,
                 child: AppInput("Search price, transaction ID, or date booked",
                     TextInputType.text, searchText),
+              ),
+              SizedBox(
+                height: AppSizes.extraSmall,
+              ),
+              AppButton(
+                "Download Transactions",
+                () {
+                  downloadTransactions();
+                },
+                width: AppSizes.getWitdth(context),
               ),
 
               // ChipsChoice<String>.multiple(
@@ -137,5 +157,62 @@ class _TransactionsState extends State<Transactions> {
             ],
           ))),
     );
+  }
+
+  void downloadTransactions() async {
+    // Fetch the documents from Firebase Firestore
+    final QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+        .instance
+        .collection('orders')
+        .where("businessID", isEqualTo: userInfo.user.uid.value)
+        .get();
+
+    // Convert the QuerySnapshot to a List<QueryDocumentSnapshot<Map<String, dynamic>>
+    // Call the function to download as a CSV
+    saveDataAsCSV("transactions.csv", snapshot.docs);
+  }
+
+  Future<void> saveDataAsCSV(String fileName,
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> data) async {
+    // Convert the data to a List<List<dynamic>> where each inner list represents a row in the CSV
+    final List<List<dynamic>> rows = [];
+
+    // Add headers to the CSV (assuming your documents have consistent structure)
+    final headers = [
+      'dateBooked',
+      'timeBooked',
+      'customerID',
+      'order',
+      'status',
+      'totalPrice',
+    ]; // Replace with your actual field names
+    rows.add(headers);
+
+    // Iterate through the documents and add data to rows
+    for (final doc in data) {
+      final Map<String, dynamic> docData = doc.data() as Map<String, dynamic>;
+      final List<dynamic> row = [
+        docData['dateBooked'],
+        docData['timeBooked'],
+        docData['customerID'],
+        docData['order'],
+        docData['status'],
+        docData['totalPrice'],
+      ];
+      rows.add(row);
+    }
+
+    // Convert the rows to a CSV string
+    final csvData = const ListToCsvConverter().convert(rows);
+
+    // Get the app's external storage directory and save the CSV file
+    final directory = await getExternalStorageDirectory();
+    final filePath = '/storage/emulated/0/Documents/$fileName';
+    final file = File(filePath);
+
+    await file.writeAsString(csvData);
+
+    // The CSV file is now saved in the external storage directory.
+    print('CSV file saved to: $filePath');
   }
 }

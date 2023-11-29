@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:hive_business/components/navigationButton.dart';
 import 'package:hive_business/screens/home.dart';
 import 'package:hive_business/screens/profile.dart';
-import 'package:hive_business/screens/services.dart';
+import 'package:hive_business/screens/serviceList.dart';
 import 'package:hive_business/screens/transactions.dart';
 import 'package:hive_business/statemanagement/businessInfo/businessInfoController.dart';
 import 'package:hive_business/utilities/colors.dart';

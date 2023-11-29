@@ -6,6 +6,7 @@ import 'package:hive_business/components/AppButton.dart';
 import 'package:hive_business/components/AppInput.dart';
 import 'package:hive_business/components/AppLayout.dart';
 import 'package:hive_business/components/chart/bar_charts.dart';
+import 'package:hive_business/components/chart/pie_chart.dart';
 import 'package:hive_business/components/customerSection.dart';
 import 'package:hive_business/components/location.dart';
 import 'package:hive_business/components/servicesGrid.dart';

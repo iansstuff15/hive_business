@@ -209,6 +209,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  csv:
+    dependency: "direct main"
+    description:
+      name: csv
+      sha256: "142bdf2b24f4a49e35a0fc4398f21d861c4c0f9015e8054dcacd0bb8e23ee27d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.1.0"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -338,7 +346,7 @@ packages:
     source: hosted
     version: "2.0.2"
   file_picker:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: file_picker
       sha256: b1729fc96627dd44012d0a901558177418818d6bd428df59dcfeb594e5f66432
@@ -453,10 +461,10 @@ packages:
     dependency: "direct main"
     description:
       name: fl_chart
-      sha256: e97c5b850ad056e9b3a85d3afeb44c239a83aa994a90723940dac82234f2efaf
+      sha256: "6b9eb2b3017241d05c482c01f668dd05cc909ec9a0114fdd49acd958ff2432fa"
       url: "https://pub.dev"
     source: hosted
-    version: "0.61.0"
+    version: "0.64.0"
   flexi_chip:
     dependency: transitive
     description:
@@ -1129,7 +1137,7 @@ packages:
     source: hosted
     version: "1.0.1"
   path_provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path_provider
       sha256: "3087813781ab814e4157b172f1a11c46be20179fcc9bea043e0fba36bc0acaa2"
@@ -1177,7 +1185,7 @@ packages:
     source: hosted
     version: "2.1.7"
   permission_handler:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: permission_handler
       sha256: "63e5216aae014a72fe9579ccd027323395ce7a98271d9defa9d57320d001af81"
